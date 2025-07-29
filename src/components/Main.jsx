@@ -1,84 +1,77 @@
 import React from "react";
 import product1 from "../assets/image-product-1.jpg";
+import product2 from "../assets/image-product-2.jpg";
+import product3 from "../assets/image-product-3.jpg";
+import product4 from "../assets/image-product-4.jpg";
 import plus from "../assets/icon-plus.svg";
 import minus from "../assets/icon-minus.svg";
 import { useState } from "react";
 import { useRef } from "react";
 import { FaArrowCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 
-const Main = () => {
-  const slider = useRef(null);
-  const slideRight = () => {
-    if (slider.current) {
-      slider.current.scrollLeft += 550;
+const Main = ({quant,setQuant}) => {
+  
+  const [index,setIndex] = useState(0)
+  const slides =[
+    {
+      image:product1
+    },
+    {
+      image:product2
+    },
+    {
+      image:product3
+    },
+    {
+      image:product4
     }
-  };
+  ]
+  const prevSlide=()=>{
+    const first = index===0
+    const prevIndex = first ? index : index -1
+    setIndex(prevIndex)
+  }
 
-  const slideLeft = () => {
-    if (slider.current) {
-      slider.current.scrollLeft -= 550;
+  const nextSlide=()=>{
+    const last = index=== slides.length -1
+    const nextIndex = last ? index : index +1
+    setIndex(nextIndex)
+  }
+  const setSlide=(i)=>{
+    setIndex(i);
+  }
+
+  const addQuant =()=>{
+    setQuant(quant+1)
+  }
+  const removeQuant =()=>{
+
+    if (quant > 0) {
+      setQuant(quant - 1);
     }
-  };
+  }
+
+
+
+
   return (
     <>
       <div className="flex flex-col md:flex-row items-center justify-center gap-13 mx-3 md:max-w-[1240px] md:mx-auto mt-12">
-        <div className="absolute transform left-0 ml-22 md:ml-72">
-          <FaArrowCircleLeft
-            className="text-[#B9FF66] cursor-pointer"
-            onClick={slideLeft}
-            size={40}
-          />
-        </div>
-
-        <div className="absolute transform right-0 mr-22 md:mr-72">
-          <FaArrowCircleRight
-            className="text-[#B9FF66] cursor-pointer"
-            onClick={slideRight}
-            size={40}
-          />
-        </div>
+        
         <div className="flex w-full md:flex-col gap-3">
           <div
-            className=" relative overflow-x-auto flex hide-scroolbar "
-            ref={slider}
-          >
-            <img className="rounded-xl md:w-full" src={product1} alt="" />
-            <img
-              className="rounded-xl md:w-full md:hidden"
-              src={product1}
-              alt=""
-            />
-            <img
-              className="rounded-xl md:w-full md:hidden"
-              src={product1}
-              alt=""
-            />
-            <img
-              className="rounded-xl md:w-full md:hidden"
-              src={product1}
-              alt=""
-            />
-            <img
-              className="rounded-xl md:w-full md:hidden"
-              src={product1}
-              alt=""
-            />
+              className="w-full h-[400px] bg-cover bg-center rounded-xl duration-500"
+              style={{ backgroundImage: `url(${slides[index].image})` }}
+            ></div>
+          <FaArrowCircleLeft className="absolute keft-4 top-76 md:hidden" onClick={prevSlide} size={30}/>
+          <FaArrowCircleRight className="absolute right-4 top-76 md:hidden" onClick={nextSlide} size={30}/>
+          <div className="hidden md:flex gap-3 flex-wrap">
+            <div className="w-32" onClick={() => setSlide(0)}><img className="rounded-xl" src={product1}alt="" /></div>
+            <div className="w-32" onClick={() => setSlide(1)}><img  className="rounded-xl" src={product2}alt="" /></div>
+            <div className="w-32" onClick={() => setSlide(2)}><img className="rounded-xl" src={product3}alt="" /></div>
+            <div className="w-32" onClick={() => setSlide(3)}><img className="rounded-xl" src={product4}alt="" /></div>
           </div>
-
-          <div className=" gap-2 hidden md:flex flex-wrap mt-2">
-            <div className="w-32">
-              <img className="rounded-md" src={product1} alt="" />
-            </div>
-            <div className="w-32">
-              <img className="rounded-md" src={product1} alt="" />
-            </div>
-            <div className="w-32">
-              <img className="rounded-md" src={product1} alt="" />
-            </div>
-            <div className="w-32">
-              <img className="rounded-md" src={product1} alt="" />
-            </div>
-          </div>
+         
         </div>
         <div className="">
           <div className="mx-5 mt-3 grid-cols-1 md:grid-cols-2">
@@ -105,13 +98,13 @@ const Main = () => {
               </div>
               <div className="flex flex-col md:flex-row mt-2 gap-2">
                 <div className="flex bg-gray-200 justify-between md:w-1/4 p-3 items-center rounded-md">
-                  <div className="ml-2">
+                  <div className="ml-2" onClick={removeQuant}>
                     <img src={minus} alt="" />
                   </div>
                   <div>
-                    <p>0</p>
+                    <p>{quant}</p>
                   </div>
-                  <div className="mr-2">
+                  <div className="mr-2" onClick={addQuant}>
                     <img src={plus} alt="" />
                   </div>
                 </div>
