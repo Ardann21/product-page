@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* Optional: For smoother scrolling on iOS devices (applies to both x and y overflow) */
+.hide-scrollbar {
+  -webkit-overflow-scrolling: touch;
+}
