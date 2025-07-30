@@ -3,12 +3,32 @@ import Nav from "./components/Nav";
 import Main from "./components/Main";
 import { useState } from "react";
 function App() {
-  const [quant,setQuant] = useState(0)
-  const [cartItem,setCartItem] = useState([])
+
+  const [cart,setCart] = useState([])
+
+   const addToCart = (product) => {
+    setCart((prevCart) => {
+      const existing = prevCart.find((item) => item.id === product.id);
+      if (existing) {
+        return prevCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + product.quantity }
+            : item
+        );
+      } else {
+        return [...prevCart, { ...product, quantity: product.quantity }];
+      }
+    });
+  };
+
+   const removeFromCart = (productId) => {
+  setCart((prev) => prev.filter((item) => item.id !== productId));
+};
+
   return (
     <>
-      <Nav quant={quant} setQuant={setQuant} cartItem={cartItem} setCartItem={setCartItem}/>
-      <Main quant={quant} setQuant={setQuant} cartItem={cartItem} setCartItem={setCartItem}/>
+      <Nav cart={cart} removeFromCart={removeFromCart}/>
+      <Main addToCart={addToCart} />
     </>
   );
 }

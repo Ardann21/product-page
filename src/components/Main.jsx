@@ -9,8 +9,13 @@ import { useState } from "react";
 import { useRef } from "react";
 import { FaArrowCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 
-const Main = ({quant,setQuant}) => {
+const Main = ({addToCart}) => {
+
+  const products = [
+  { id: 1, name: "Fall Limited Edition Sneakers", price: 125.00}
   
+];
+  const [quant,setQuant] = useState(1)
   const [index,setIndex] = useState(0)
   const slides =[
     {
@@ -56,15 +61,16 @@ const Main = ({quant,setQuant}) => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row items-center justify-center gap-13 mx-3 md:max-w-[1240px] md:mx-auto mt-12">
+      {products.map((product)=>(
+        <div key={product.id} className="flex flex-col md:flex-row items-center justify-center gap-13 mx-3 md:max-w-[1240px] md:mx-auto mt-12">
         
         <div className="flex w-full md:flex-col gap-3">
           <div
               className="w-full h-[400px] bg-cover bg-center rounded-xl duration-500"
               style={{ backgroundImage: `url(${slides[index].image})` }}
             ></div>
-          <FaArrowCircleLeft className="absolute keft-4 top-76 md:hidden" onClick={prevSlide} size={30}/>
-          <FaArrowCircleRight className="absolute right-4 top-76 md:hidden" onClick={nextSlide} size={30}/>
+          <FaArrowCircleLeft className="absolute left-4 top-76 md:hidden text-gray-800 opacity-35 cursor-pointer z-30" onClick={prevSlide} size={30}/>
+          <FaArrowCircleRight className="absolute right-4 top-76 md:hidden text-gray-800 opacity-35 cursor-pointer" onClick={nextSlide} size={30}/>
           <div className="hidden md:flex gap-3 flex-wrap">
             <div className="w-32" onClick={() => setSlide(0)}><img className="rounded-xl" src={product1}alt="" /></div>
             <div className="w-32" onClick={() => setSlide(1)}><img  className="rounded-xl" src={product2}alt="" /></div>
@@ -78,7 +84,7 @@ const Main = ({quant,setQuant}) => {
             <div className="text-left flex flex-col gap-2">
               <h1 className="font-bold text-gray-400">SNEAKER COMPANY</h1>
               <p className="font-bold text-5xl text-gray-800">
-                Fall Limited Edition Sneakers
+                {product.name}
               </p>
               <p className="text-gray-600">
                 These low-profile sneakers are your perfect casual wear
@@ -89,8 +95,8 @@ const Main = ({quant,setQuant}) => {
             <div>
               <div className="text-left flex md:flex-col justify-between mt-3">
                 <p>
-                  $125.00{" "}
-                  <span className="bg-gray-900 text-white font-bold p-1 rounded-md">
+                  ${product.price}.00
+                  <span className="bg-gray-900 text-white font-bold p-1 rounded-md ml-2">
                     50%
                   </span>
                 </p>
@@ -109,7 +115,7 @@ const Main = ({quant,setQuant}) => {
                   </div>
                 </div>
                 <div className="md:w-3/4">
-                  <button className="bg-orange-500 w-full p-3 rounded-md">
+                  <button onClick={() => quant===0 ? null : addToCart({ ...product, quantity: quant})} className="bg-orange-500 w-full p-3 rounded-md">
                     Add to Cart
                   </button>
                 </div>
@@ -118,6 +124,8 @@ const Main = ({quant,setQuant}) => {
           </div>
         </div>
       </div>
+      ))}
+      
     </>
   );
 };

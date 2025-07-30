@@ -1,5 +1,5 @@
 import React from "react";
-import cart from "../assets/icon-cart.svg";
+import cartt from "../assets/icon-cart.svg";
 import avatar from "../assets/image-avatar.png";
 import menu from "../assets/icon-menu.svg";
 import close from "../assets/icon-close.svg";
@@ -7,7 +7,7 @@ import { useState } from "react";
 import product1 from "../assets/image-product-1.jpg";
 import trash from "../assets/icon-delete.svg";
 
-const Nav = ({quant,setQuant}) => {
+const Nav = ({cart ,removeFromCart}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -19,6 +19,8 @@ const Nav = ({quant,setQuant}) => {
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
+
+ 
 
   return (
     <>
@@ -40,28 +42,36 @@ const Nav = ({quant,setQuant}) => {
             <li>Contact</li>
           </ul>
         </div>
-        <div onClick={isCartOpen} className="flex items-center gap-6">
+        <div className="flex items-center gap-6">
           <div className="flex">
               <div className={!cartOpen ? " p-7 fixed top-17 right-0 md:right-16  gap-3 rounded-2xl bg-white shadow-[0px_4px_4px_0px_rgba(0,_0,_0,_0.1)] flex flex-col ease-in-out duration-155" : "p-7 fixed top-[-100%] right-0 md:right-16  gap-3 rounded-2xl bg-gray-100 flex flex-col ease-out duration-800"}>
                 <div className="border-b border-b-gray-300 flex"><h1 className="text-left font-bold">Cart</h1></div>
-                <div className="flex gap-3">
+                {cart.length ===0 ? <p className="px-15 text-xl">No items in cart </p>:
+                (cart.map((item)=>(
+                  <div key={item.id} className="flex gap-3">
                   <div className="h-12 w-12"><img className="w-auto" src={product1} alt="" /></div>
                   <div className="flex flex-col">
-                    <p>Fall limited Edition Sneaker</p>
-                  <div className="flex gap-1"><p>$125.00</p> <p>x{quant}</p> <p className="font-bold">$375</p></div>
+                    <p>{item.name}</p>
+                  <div className="flex gap-1"><p>${item.price}.00</p> <p>x{item.quantity}</p> <p className="font-bold">${item.price * item.quantity}.00</p></div>
                   
                   </div>
-                  <div className="items-center flex"><img src={trash} alt="" /></div>
+                  <div onClick={() => removeFromCart(cart[0].id)} className="items-center flex cursor-pointer"><img src={trash} alt="" /></div>
                   
                 </div>
-                  <button className="bg-orange-500 w-full p-3 rounded-md">
+                )))
+                 
+                }
+               
+                  <button className="bg-orange-500 w-full p-3 rounded-md cursor-pointer hover:bg-black hover:text-white duration-250">
                     Checkout
                   </button>
               </div>
           </div>
-          <div className="cursor-pointer"><img src={cart} alt="" /> <span className="absolute top-5 bg-amber-600 rounded-full text-[11px] px-1">{quant}</span></div>
+          <div onClick={isCartOpen} className="cursor-pointer"><img src={cartt} alt="" /> <span className="absolute top-5 bg-amber-600 rounded-full text-[11px] px-1">{cart.map((item)=>(
+            item.quantity
+          ))}</span></div>
           
-          <img className="h-auto w-9 block" src={avatar} alt="" />
+          <img className="h-auto w-9 block hover:scale-95 hover:border-amber-600 hover:border-5 rounded-full duration-100 cursor-pointer" src={avatar} alt="" />
           
         </div>
         
@@ -69,7 +79,7 @@ const Nav = ({quant,setQuant}) => {
         <div
           className={
             isOpen
-              ? "fixed left-0 top-0 bg-white  border-r w-[60%] border-r-black h-full ease-in-out duration-150"
+              ? "fixed left-0 top-0 bg-white  border-r w-[60%] border-r-black h-full ease-in-out duration-150 z-31"
               : "fixed left-[-100%] ease-out duration-950"
           }
         >
