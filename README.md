@@ -1,12 +1,24 @@
-# React + Vite
+# 🛍️ Product Page - React + Tailwind CSS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a fully responsive **e-commerce product page** built using **React** and **Tailwind CSS**. It mimics a modern shopping experience with interactive image sliders, quantity control, and add-to-cart functionality.
 
-Currently, two official plugins are available:
+🔗 **Live Website**: [https://Ardann21.github.io/product-page](https://Ardann21.github.io/product-page)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- ✅ Responsive design for desktop and mobile
+- 🖼️ Image slider with preview thumbnails
+- ➕ Quantity increase/decrease
+- 🛒 Add to Cart functionality
+- 🧺 Cart badge with dynamic quantity updates
+- 🧹 Remove items from cart
+- 🔥 Tailwind CSS for fast and clean styling
+- ⚛️ Built with functional React components and hooks
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Tech Stack
+
+- React
+- Tailwind CSS
+- Vite (optional, if used for build)
+- GitHub Pages for deployment
+
